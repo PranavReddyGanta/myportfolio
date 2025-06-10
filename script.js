@@ -1,4 +1,4 @@
-// Typing animation
+// Typing animation - EXACT same behavior, just fixed timing
 const texts = ['Full Stack Developer', 'Undergrad', 'Problem Solver', 'Tech Enthusiast'];
 let textIndex = 0;
 let charIndex = 0;
@@ -165,13 +165,18 @@ document.querySelectorAll('.project-card').forEach((card, index) => {
     card.style.animationDelay = `${index * 0.1}s`;
 });
 
-// Dynamic copyright year
+// Dynamic copyright year + Initialize typing animation
 document.addEventListener('DOMContentLoaded', () => {
     const currentYear = new Date().getFullYear();
     const copyrightElement = document.querySelector('.footer-content p');
     if (copyrightElement) {
         copyrightElement.textContent = `© ${currentYear} Pranav Reddy. All rights reserved.`;
     }
-    // Initialize typing animation
-    setTimeout(typeText, 1000);
+    
+    // ONLY CHANGE: Wait for DOM to be ready, then start typing animation
+    // This ensures the .typing-text element exists before we try to animate it
+    const typingElement = document.querySelector('.typing-text');
+    if (typingElement) {
+        setTimeout(typeText, 1000);
+    }
 });
