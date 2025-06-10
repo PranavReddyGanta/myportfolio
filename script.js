@@ -12,19 +12,21 @@ function typeText() {
     const currentText = texts[textIndex];
     
     if (!isDeleting) {
-        typingElement.textContent = currentText.substring(0, charIndex + 1);
+        typingElement.textContent = currentText.substring(0, charIndex + 1) + '|';
         charIndex++;
         
         if (charIndex === currentText.length) {
+            typingElement.textContent = currentText;
             isDeleting = true;
             setTimeout(typeText, pauseTime);
             return;
         }
     } else {
-        typingElement.textContent = currentText.substring(0, charIndex - 1);
+        typingElement.textContent = currentText.substring(0, charIndex - 1) + '|';
         charIndex--;
         
         if (charIndex === 0) {
+            typingElement.textContent = '';
             isDeleting = false;
             textIndex = (textIndex + 1) % texts.length;
         }
@@ -127,7 +129,7 @@ document.querySelector('.contact-form').addEventListener('submit', function(e) {
         return;
     }
     
-    // Here you would typically send the data to a server
+    // Simulate form submission
     alert('Thank you for your message! I\'ll get back to you soon.');
     this.reset();
 });
@@ -170,50 +172,6 @@ document.addEventListener('DOMContentLoaded', () => {
     if (copyrightElement) {
         copyrightElement.textContent = `© ${currentYear} Pranav Reddy. All rights reserved.`;
     }
-});
-
-// Initialize typing animation when page loads
-document.addEventListener('DOMContentLoaded', () => {
+    // Initialize typing animation
     setTimeout(typeText, 1000);
 });
-
-// Add CSS for mobile menu animation
-const style = document.createElement('style');
-style.textContent = `
-    @media (max-width: 768px) {
-        .nav-menu {
-            position: fixed;
-            left: -100%;
-            top: 70px;
-            flex-direction: column;
-            background-color: white;
-            width: 100%;
-            text-align: center;
-            transition: 0.3s;
-            box-shadow: 0 10px 27px rgba(0, 0, 0, 0.05);
-            padding: 2rem 0;
-        }
-        
-        .nav-menu.active {
-            left: 0;
-        }
-        
-        .nav-menu .nav-link {
-            padding: 1rem;
-            display: block;
-        }
-        
-        .hamburger.active span:nth-child(2) {
-            opacity: 0;
-        }
-        
-        .hamburger.active span:nth-child(1) {
-            transform: translateY(8px) rotate(45deg);
-        }
-        
-        .hamburger.active span:nth-child(3) {
-            transform: translateY(-8px) rotate(-45deg);
-        }
-    }
-`;
-document.head.appendChild(style);
