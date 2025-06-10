@@ -41,9 +41,47 @@
                     <h1 class="hero-title">
                         Hi, I'm <span class="highlight">Pranav Reddy</span>
                     </h1>
-                    <div class="typing-container">
-                        <span class="typing-text"></span>
-                    </div>
+                    <div class="typing-container" style="font-family: monospace; font-size: 24px; display: inline-block; white-space: nowrap; position: relative;">
+  <span id="typing-text"></span>
+  <span id="cursor" style="display:inline-block; width:2px; height:1.0em; background:black; margin-left:2px; animation: blink 1s step-start infinite;"></span>
+</div>
+
+<style>
+  @keyframes blink {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0; }
+  }
+</style>
+
+<script>
+  const texts = ['Full Stack Developer', 'Undergrad', 'Problem Solver', 'Tech Enthusiast'];
+  let i = 0, j = 0, isDeleting = false;
+
+  function type() {
+    const textDisplay = document.getElementById('typing-text');
+    const current = texts[i];
+    if (!isDeleting) {
+      textDisplay.textContent = current.substring(0, j + 1);
+      j++;
+      if (j === current.length) {
+        isDeleting = true;
+        setTimeout(type, 2000);
+        return;
+      }
+    } else {
+      textDisplay.textContent = current.substring(0, j - 1);
+      j--;
+      if (j === 0) {
+        isDeleting = false;
+        i = (i + 1) % texts.length;
+      }
+    }
+    setTimeout(type, isDeleting ? 50 : 100);
+  }
+
+  type();
+</script>
+
                     <p class="hero-description">
                         Passionate developer creating innovative solutions with modern technologies. 
                         I love building applications that make a difference and solving complex problems through code.
